@@ -13,7 +13,6 @@ public static class Program
         var app = builder.Build();
         Configure(app);
     }
-
     public static void ConfigureServices(IServiceCollection services)
     {
         services.AddDbContext<MyDbContext>(options =>
