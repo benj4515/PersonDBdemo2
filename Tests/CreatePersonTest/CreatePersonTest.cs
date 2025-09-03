@@ -11,7 +11,7 @@ public class CreatePersonTest(PersonService personService, MyDbContext ctx)
     {
         // Arrange
         var name = "Bob";
-        var validDto = new CreatePersonRequestDto(name: name, age: 2);
+        var validDto = new CreatePersonRequestDto(Name: name, Age: 2);
         
         // Act
         
