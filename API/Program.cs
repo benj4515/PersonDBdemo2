@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using personsDBdemo;
 using Service;
 
-
 public static class Program
 {
     public static void Main(string[] args)
@@ -13,6 +12,7 @@ public static class Program
         var app = builder.Build();
         Configure(app);
     }
+
     public static void ConfigureServices(IServiceCollection services)
     {
         services.AddDbContext<MyDbContext>(options =>
@@ -21,9 +21,19 @@ public static class Program
         services.AddScoped<IPersonService, PersonService>();
 
         services.AddOpenApiDocument();
-
         services.AddControllers();
 
+        // 🔹 Tilføj CORS
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontend",
+                policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173") // din frontend
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+        });
     }
 
     public static void Configure(WebApplication app)
@@ -35,9 +45,12 @@ public static class Program
 
         app.UseOpenApi();
         app.UseSwaggerUi();
+
+        // 🔹 Brug CORS (skal stå før MapControllers)
+        app.UseCors("AllowFrontend");
+
         app.MapControllers();
 
         app.Run();
-
     }
 }

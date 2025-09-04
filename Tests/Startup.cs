@@ -16,7 +16,7 @@ public class Startup
         services.RemoveAll(typeof(MyDbContext));
         services.AddScoped<MyDbContext>(provider =>
         {
-            var connection = new SqliteConnection("Data Scource=:memory:");
+            var connection = new SqliteConnection("Data Source=:memory:");
             connection.Open();
             var options = new DbContextOptionsBuilder<MyDbContext>()
                 .UseSqlite(connection)

@@ -4,14 +4,14 @@ using Service;
 
 namespace Tests.CreatePersonTest;
 
-public class CreatePersonTest(PersonService personService, MyDbContext ctx)
+public class CreatePersonTest(IPersonService personService, MyDbContext ctx)
 {
     [Fact]
     public async Task CreatePerson_ShouldBeAbleToSuccessfullyCreatePerson_WhenNoValidationErrors()
     {
         // Arrange
-        var name = "Bob";
-        var validDto = new CreatePersonRequestDto(Name: name, Age: 2);
+        var name = "Bobo";
+        var validDto = new CreatePersonRequestDto(name: name, age: 2);
         
         // Act
         
