@@ -1,0 +1,36 @@
+using DataAccess;
+using Microsoft.AspNetCore.Mvc;
+using personsDBdemo;
+using Service;
+
+namespace personsDBdemo;
+
+[ApiController]
+public class PetController(IPetService petService) : ControllerBase
+{
+
+    [HttpPost(nameof(CreatePet))]
+    public async Task<Pet> CreatePet([FromBody] CreatePetRequestDto p)
+    {
+        var result = await petService.CreatePet(p);
+        return result;
+    }
+
+    [HttpPatch(nameof(UpdatePet))]
+    public Pet UpdatePet([FromBody] UpdatePetRequestDto p)
+    {
+        return petService.UpdatePet(p);
+    }
+
+    [HttpDelete(nameof(DeletePet))]
+    public Pet DeletePet(string id)
+    {
+        return petService.DeletePet(id);
+    }
+
+    [HttpGet(nameof(GetAllPets))]
+    public List<Pet> GetAllPets()
+    {
+        return petService.GetAllPets();
+    }
+}

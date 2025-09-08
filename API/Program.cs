@@ -1,4 +1,4 @@
-using Infrasctructure.Postgres.Scaffolding;
+using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using personsDBdemo;
 using Service;
@@ -18,7 +18,7 @@ public static class Program
         services.AddDbContext<MyDbContext>(options =>
             options.UseSqlite("Data Source=pets.db"));
 
-        services.AddScoped<IPersonService, PersonService>();
+        services.AddScoped<IPetService, PetService>();
 
         services.AddOpenApiDocument();
         services.AddControllers();

@@ -2,19 +2,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Service;
 
-public record UpdatePersonRequestDto
+public record UpdatePetRequestDto
 {
-    public UpdatePersonRequestDto(string name, int age, string id)
+    public UpdatePetRequestDto(string name, string breed, string id)
     {
         Name = name;
-        Age = age;
+        Breed = breed;
         Id = id;
     }
 
     [MinLength(2)]
     public string Name { get; set; }
-    [Range(0,15)]
-    public int Age { get; set; }
+    [MinLength(1)] 
+    public string Breed { get; set; }
     /// <summary>
     /// ID is used for retrieving existing pet, not for updating the ID value
     /// </summary>
