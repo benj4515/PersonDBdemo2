@@ -1,4 +1,5 @@
 ﻿
+using DataAccess;
 using Infrasctructure.Postgres.Scaffolding;
 
 using Microsoft.Data.Sqlite;

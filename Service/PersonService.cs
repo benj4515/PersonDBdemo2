@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DataAccess;
 using Infrasctructure.Postgres.Scaffolding;
 using Microsoft.AspNetCore.Mvc;
 using personsDBdemo;
@@ -25,7 +26,7 @@ public class PersonService(MyDbContext _db) : IPersonService
             name: person.Name,
             createdAt: DateTime.UtcNow,
             id: Guid.NewGuid().ToString());
-        await _db.Persons.AddAsync(personEntity);
+        await _db.Pet.AddAsync(petEntity);
         await _db.SaveChangesAsync();
         return personEntity;
     }
@@ -44,14 +45,14 @@ public class PersonService(MyDbContext _db) : IPersonService
     
     public Person DeletePerson(string personId)
     {
-        var existingPerson = _db.Persons.First(p => p.Id == personId);
-        _db.Persons.Remove(existingPerson);
+        var existingPerson = _db.Pets.First(p => p.Id == personId);
+        _db.Pets.Remove(existingPerson);
         _db.SaveChanges();
         return existingPerson;
     }
     
     public List<Person> GetAllPersons()
     {
-        return _db.Persons.ToList();
+        return _db.Pets.ToList();
     }
 }
