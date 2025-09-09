@@ -3,20 +3,24 @@ using Microsoft.EntityFrameworkCore;
 using personsDBdemo;
 using Service;
 
+
+
 public static class Program
 {
+    
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        ConfigureServices(builder.Services);
+        ConfigureServices(builder.Services, builder.Configuration);
         var app = builder.Build();
         Configure(app);
     }
 
-    public static void ConfigureServices(IServiceCollection services)
+    public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
+        
         services.AddDbContext<MyDbContext>(options =>
-            options.UseSqlite("Data Source=pets.db"));
+            options.UseNpgsql(configuration.GetValue<string>("Db")));
 
         services.AddScoped<IPetService, PetService>();
 
@@ -40,7 +44,7 @@ public static class Program
     {
         using (var scope = app.Services.CreateScope())
         {
-            scope.ServiceProvider.GetRequiredService<MyDbContext>().Database.EnsureCreated();
+           
         }
 
         app.UseOpenApi();
